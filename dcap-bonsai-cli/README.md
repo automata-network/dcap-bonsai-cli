@@ -13,6 +13,8 @@
 
 This CLI tool is used to fetch SNARK proofs of execution on the DCAP Guest Application via Bonsai, and optionally submit them on-chain. The DCAP Guest Application proves that an Intel SGX DCAP quote has been successfully verified and the enclave which originated the quote is legitimate.
 
+Before you begin, make sure to `cd` into this directory.
+
 Follow these steps to get started with this tool:
 
 0. Install [Rust](https://doc.rust-lang.org/book/ch01-01-installation.html)
@@ -37,15 +39,15 @@ cargo build --release
 You may run the following command to see available commands.
 
 ```bash
-./target/release/app --help
+../target/release/dcap-bonsai-cli --help
 ```
 
 Outputs:
 
 ```bash
-Gets Bonsai Proof for DCAP QuoteV3 Verification and submits on-chain
+Gets Bonsai Proof for DCAP Quote Verification and submits on-chain
 
-Usage: app <COMMAND>
+Usage: dcap-bonsai-cli <COMMAND>
 
 Commands:
   prove        Fetches proof from Bonsai and sends them on-chain to verify DCAP quote
@@ -62,7 +64,7 @@ Options:
 To get help on individual commands (e.g. `prove`), do the following:
 
 ```bash
-./target/release/app prove --help
+../target/release/dcap-bonsai-cli prove --help
 ```
 
 Output:
@@ -70,7 +72,7 @@ Output:
 ```bash
 Fetches proof from Bonsai and sends them on-chain to verify DCAP quote
 
-Usage: app prove [OPTIONS]
+Usage: dcap-bonsai-cli prove [OPTIONS]
 
 Options:
   -q, --quote-hex <QUOTE_HEX>
@@ -90,7 +92,7 @@ Options:
 You may either pass your quote as a hexstring with the `--quote-hex` flag, or as a stored hexfile in `/data/quote.hex`. If you store your quote elsewhere, you may pass the path with the `--quote-path` flag.
 
 >
-> [!NOTE]
+> ℹ️ **Note**
 > Beware that passing quotes with the `--quote-hex` flag overwrites passing quotes with the `--quote-path` flag.
 >
 
@@ -99,10 +101,21 @@ It is also recommended to set the environment value `RUST_LOG=info` to view logs
 To begin, run the command below:
 
 ```bash
-RUST_LOG=info ./target/release/app prove
+RUST_LOG=info ../target/release/dcap-bonsai-cli prove
 ```
+>
+> ℹ️ **Note**
+> Passing your wallet key is optional. If none is provided, the program verifies the journal and seal with a staticcall made to the contract, without sending a transaction.
+>
 
-<!-- >
-> [!NOTE]
-> Passing your wallet key is optional. If none is provided, the program simply ends by printing the journal, post state digest and seal values to the terminal, without sending a transaction to the verification contract.
-> -->
+>
+> ℹ️ **Note**
+> The expected ImageID to perform SNARK verification on-chain should be: 
+> `83613a8beec226d1f29714530f1df791fa16c2c4dfcf22c50ab7edac59ca637f`
+>
+> You may run the command below to check the computed ImageID for the provided Guest program ELF.
+>
+> ``` bash
+> ../target/release/dcap-bonsai-cli iamge-id
+> ```
+>

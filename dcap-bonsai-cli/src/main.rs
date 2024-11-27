@@ -7,7 +7,7 @@ use risc0_zkvm::{
 use std::fs::read_to_string;
 use std::path::PathBuf;
 
-use app::chain::{
+use dcap_bonsai_cli::chain::{
     attestation::{decode_attestation_ret_data, generate_attestation_calldata},
     get_evm_address_from_key,
     pccs::{
@@ -17,17 +17,17 @@ use app::chain::{
     },
     TxSender,
 };
-use app::code::DCAP_GUEST_ELF;
-use app::collaterals::Collaterals;
-use app::constants::*;
-use app::parser::get_pck_fmspc_and_issuer;
-use app::remove_prefix_if_found;
+use dcap_bonsai_cli::code::DCAP_GUEST_ELF;
+use dcap_bonsai_cli::collaterals::Collaterals;
+use dcap_bonsai_cli::constants::*;
+use dcap_bonsai_cli::parser::get_pck_fmspc_and_issuer;
+use dcap_bonsai_cli::remove_prefix_if_found;
 
 use dcap_rs::types::VerifiedOutput;
 
 #[derive(Parser)]
 #[command(name = "DcapBonsaiApp")]
-#[command(version = "1.0")]
+#[command(version = "0.1.0")]
 #[command(about = "Gets Bonsai Proof for DCAP Quote Verification and submits on-chain")]
 struct Cli {
     #[command(subcommand)]

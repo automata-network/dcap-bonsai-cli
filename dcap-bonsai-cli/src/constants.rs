@@ -5,7 +5,7 @@ pub const SGX_TEE_TYPE: u32 = 0x00000000;
 pub const TDX_TEE_TYPE: u32 = 0x00000081;
 
 // Collateral Path Defaults
-pub const DEFAULT_QUOTE_PATH: &str = "./data/quote.hex";
+pub const DEFAULT_QUOTE_PATH: &str = "../data/quote.hex";
 
 // Chain Defaults
 pub const DEFAULT_RPC_URL: &str = "https://1rpc.io/ata/testnet";
